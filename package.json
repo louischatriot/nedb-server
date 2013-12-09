@@ -21,7 +21,8 @@
   },
   "dependencies": {
     "nedb": "~0.9.3",
-    "express": "~3.4.6"
+    "express": "~3.4.6",
+    "commander": "~2.1.0"
   },
   "devDependencies": {
     "chai": "1.0.x",
