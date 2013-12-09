@@ -1,0 +1,36 @@
+{
+  "name": "nedb-server",
+  "version": "0.1.0",
+  "author": {
+    "name": "Louis Chatriot",
+    "email": "louis.chatriot@gmail.com"
+  },
+  "contributors": [
+    "Louis Chatriot"
+  ],
+  "description": "HTTP interface for a NeDB database",
+  "keywords": [
+    "nedb",
+    "http",
+    "interface"
+  ],
+  "homepage": "https://github.com/louischatriot/nedb-server",
+  "repository": {
+    "type": "git",
+    "url": "git@github.com:louischatriot/nedb-server.git"
+  },
+  "dependencies": {
+    "nedb": "~0.9.3",
+    "express": "~3.4.6"
+  },
+  "devDependencies": {
+    "chai": "1.0.x",
+    "mocha": "1.4.x",
+    "request": "2.9.x"
+  },
+  "scripts": {
+    "test": "./node_modules/.bin/mocha --reporter spec --timeout 2000"
+  },
+  "main": "index",
+  "licence": "MIT"
+}
