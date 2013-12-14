@@ -12,4 +12,5 @@ db.loadDatabase(function(err) {
   }
   
   expressApp.launchServer();
+  console.log("INFO - Connection to database established and webserver launched");
 });

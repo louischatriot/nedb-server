@@ -11,9 +11,23 @@ expressApp.use(function(req, res, next) {
 });
 expressApp.use(expressApp.router);
 
-
+/**
+ * Finding documents
+ */
 expressApp.get('/find', function (req, res, next) {
-  db.find({}, function (err, docs) {
+  var query = {};
+
+  if (req.query.q) {
+    try {
+      query = JSON.parse(req.query.q);
+    } catch(e) {
+      return res.json(403, { error: "Badly formed JSON" });
+    }
+  }
+  
+  console.log(query);
+
+  db.find(query, function (err, docs) {
     if (err) {
       return res.json(403, { error: err });
     } else {
