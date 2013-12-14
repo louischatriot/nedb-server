@@ -5,8 +5,22 @@ var config = require('./lib/config')
   ;
   
 expressApp.use(express.bodyParser());
-expressApp.use(function(req, res, next) {
+expressApp.use(function(req, res, next) {   // Prevent any problem with CORS
   res.header('Access-Control-Allow-Origin', '*');
+  return next();
+});
+expressApp.use(function(req, res, next) {   // Parse query string parameters
+  if (req.method !== "GET") { return next(); }
+  
+  req.parsedParameters = {};
+  if (req.query.query) {
+    try {
+      req.parsedParameters.query = JSON.parse(req.query.query);
+    } catch(e) {
+      return res.json(403, { error: "Badly formed JSON in the query parameter" });
+    }
+  }
+  
   return next();
 });
 expressApp.use(expressApp.router);
@@ -15,19 +29,7 @@ expressApp.use(expressApp.router);
  * Finding documents
  */
 expressApp.get('/find', function (req, res, next) {
-  var query = {};
-
-  if (req.query.q) {
-    try {
-      query = JSON.parse(req.query.q);
-    } catch(e) {
-      return res.json(403, { error: "Badly formed JSON" });
-    }
-  }
-  
-  console.log(query);
-
-  db.find(query, function (err, docs) {
+  db.find(req.parsedParameters.query, function (err, docs) {
     if (err) {
       return res.json(403, { error: err });
     } else {
